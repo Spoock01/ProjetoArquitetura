@@ -8,16 +8,32 @@
 #define TAMANHO_INSTRUCAO 10
 #define TAMANHO_MEMORIA 100
 
+char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
 
 
-void printArray(char *array, int tamanho){
+void printArray(int tamanho){
 
     int i;
 
     for(i = 0; i < tamanho; i++){
-        printf("%s\n", array[i]);
+        printf("%s\n", arrayPrograma[i]);
     }
 
+}
+
+int lePrograma(FILE *programa){
+
+        char string[TAMANHO_INSTRUCAO];     // ARRAY AUXILIAR
+        int i = 0;
+
+        while(!feof(programa)){
+
+            fgets(string, sizeof(string), programa);
+            strcpy(arrayPrograma[i++], string); // COPIANDO STRING DO ARQUIVO PARA ARRAY
+
+        }
+
+        return i;
 }
 
 int leMemoria(FILE *memoria, int *array){
@@ -35,7 +51,7 @@ int leMemoria(FILE *memoria, int *array){
 
     }
 
-    return posicao - 1; // RETORNANDO TAMANHO DO ARRAY DE MEMORIA
+    return posicao; // RETORNANDO TAMANHO DO ARRAY DE MEMORIA
 
 }
 
@@ -45,6 +61,7 @@ int isValid(FILE *memoria, FILE *programa){
     // VERIFICANDO SE OS ARQUIVOS SAO VALIDOS
     return (memoria == NULL || programa  == NULL) ? 0 : 1;
 
+    // RETORNA 1 CASO NENHUM DOS PONTEIROS SEHA NULL
 }
 
 int main()
@@ -53,8 +70,7 @@ int main()
     FILE *memoria = fopen(MEMORIA, "r");
     FILE *programa = fopen(PROGRAMA, "r");
 
-    int arrayMemoria[TAMANHO_MEMORIA], sizeArrayMemoria;
-    char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
+    int arrayMemoria[TAMANHO_MEMORIA], sizeArrayMemoria, sizeArrayPrograma;
 
 
     if(!isValid(memoria, programa)){
@@ -66,12 +82,22 @@ int main()
     }
 
 
-    if(sizeArrayMemoria = leMemoria(memoria, arrayMemoria) > 0){
+    if(sizeArrayMemoria = leMemoria(memoria, arrayMemoria) <= 0){
 
         printf("Ocorreu um erro ao ler o arquivo de memoria\n"
+               "Verifique se o arquivo possui valores validos.\n"
                "O programa sera encerrado!\n");
         return 0;
     }
+
+    if(sizeArrayPrograma = lePrograma(programa) <= 0){
+
+        printf("Ocorreu um erro ao ler o arquivo de programa\n"
+               "Verifique se o arquivo possui um programa valido.\n"
+               "O programa sera encerrado!\n");
+        return 0;
+    }
+
 
 
 
