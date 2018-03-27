@@ -10,17 +10,6 @@
 
 char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
 
-
-void printArray(int tamanho){
-
-    int i;
-
-    for(i = 0; i < tamanho; i++){
-        printf("%s\n", arrayPrograma[i]);
-    }
-
-}
-
 int lePrograma(FILE *programa){
 
         char string[TAMANHO_INSTRUCAO];     // ARRAY AUXILIAR
@@ -55,7 +44,6 @@ int leMemoria(FILE *memoria, int *array){
 
 }
 
-
 int isValid(FILE *memoria, FILE *programa){
 
     // VERIFICANDO SE OS ARQUIVOS SAO VALIDOS
@@ -72,7 +60,6 @@ int main()
 
     int arrayMemoria[TAMANHO_MEMORIA], sizeArrayMemoria, sizeArrayPrograma;
 
-
     if(!isValid(memoria, programa)){
 
         printf("Ocorreu um erro ao abrir arquivos de memoria e/ou programa!\n"
@@ -80,7 +67,6 @@ int main()
         return 0;
 
     }
-
 
     if(sizeArrayMemoria = leMemoria(memoria, arrayMemoria) <= 0){
 
