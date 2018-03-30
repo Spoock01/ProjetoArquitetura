@@ -15,10 +15,12 @@ int sizeArrayMemoria, sizeArrayPrograma;
 
 int isValid(FILE *memoria, FILE *programa){
 
-    // VERIFICANDO SE OS ARQUIVOS SAO VALIDOS
+    /**
+        VERIFICANDO SE OS ARQUIVOS SAO VALIDOS.
+        RETORNA 1 CASO NENHUM DOS PONTEIROS SEHA NULL.s
+    */
     return (memoria == NULL || programa  == NULL) ? 0 : 1;
 
-    // RETORNA 1 CASO NENHUM DOS PONTEIROS SEHA NULL
 }
 
 int lePrograma(FILE *programa){
@@ -57,7 +59,7 @@ int leMemoria(FILE *memoria){
 
 int posicaoMemoria(int posicao){
 
-    /*
+    /**
         RETORNA O CONTEUDO DA POSICAO DO ARRAY DE MEMORIA
     */
 
@@ -66,14 +68,36 @@ int posicaoMemoria(int posicao){
 }
 
 int getSizeMemoria(){
+
+    /**
+        RETORNA O TAMANHO DA MEMORIA
+    */
+
     return sizeArrayMemoria;
 }
 
 int getSizePrograma(){
+
+    /**
+        RETORNA A QUANTIDADE DE INSTRUCOES
+        DO ARQUIVO DE PROGRAMA
+    */
+
     return sizeArrayPrograma;
 }
 
 void openFile(FILE *memoria, FILE *programa){
+
+    /**
+        isValid    ==> VERIFICA SE OS ARQUIVOS EXISTEM
+
+        leMemoria  ==> VERIFICA SE O ARQUIVO DE MEMORIA
+                       EH VALIDO.
+
+        lePrograma ==> VERIFICA SE O ARQUIVO COM O PROGRAMA
+                       EM ASSEMBLY EH VALIDO
+    */
+
     if(!isValid(memoria, programa))
         mostraErro(ERRO_ABERTURA_ARQUIVO);
 

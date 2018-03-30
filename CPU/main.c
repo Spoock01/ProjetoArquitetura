@@ -15,10 +15,5 @@ int main()
     openFile(memoria, programa);
 
 
-
-
-
-
-
     return 0;
 }
