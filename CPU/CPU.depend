@@ -1,6 +1,21 @@
 # depslib dependency file v1.0
-1522165665 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\main.c
+1522443841 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
+	"MensagemErro.h"
+	"LeitorDeArquivos.h"
+
+1522434974 c:\users\joaov\documents\github\projetoarquitetura\cpu\mensagemerro.h
+
+1522434992 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\mensagemerro.c
+	<stdio.h>
+	<stdlib.h>
+
+1522443872 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\leitordearquivos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1522443945 c:\users\joaov\documents\github\projetoarquitetura\cpu\leitordearquivos.h
 
