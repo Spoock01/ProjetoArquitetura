@@ -31,6 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="LeitorDeArquivos.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="LeitorDeArquivos.h" />
+		<Unit filename="MensagemErro.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MensagemErro.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

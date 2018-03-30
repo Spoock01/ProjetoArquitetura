@@ -9,7 +9,8 @@ int leMemoria(FILE *arquivo);
 int lePrograma(FILE *arquivo);
 int getSizeMemoria();
 int getSizePrograma();
-int posicaoMemoria(int posicao);
+int getPosicaoMemoria(int posicao);
+int setPosicaoMemoria(int posicao, int valor);
 
 
 #endif // LEITORDEARQUIVOS

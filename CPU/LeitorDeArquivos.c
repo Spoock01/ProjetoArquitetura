@@ -55,7 +55,7 @@ int leMemoria(FILE *memoria){
 
 }
 
-int posicaoMemoria(int posicao){
+int getPosicaoMemoria(int posicao){
 
     /**
         RETORNA O CONTEUDO DA POSICAO DO ARRAY DE MEMORIA
@@ -63,6 +63,10 @@ int posicaoMemoria(int posicao){
 
     return arrayMemoria[posicao];
 
+}
+
+int setPosicaoMemoria(int posicao, int valor){
+    arrayMemoria[posicao] = valor;
 }
 
 int getSizeMemoria(){
