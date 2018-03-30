@@ -6,7 +6,7 @@ void mostraErro(int constanteErro){
     switch(constanteErro){
 
     case 0:
-        printf("Ocorreu um erro ao abrir arquivos de memoria e/ou programa!\n"
+        printf("Ocorreu um erro ao abrir arquivo(s) de memoria e/ou programa!\n"
                "O programa sera encerrado!\n");
         exit(0);
         break;

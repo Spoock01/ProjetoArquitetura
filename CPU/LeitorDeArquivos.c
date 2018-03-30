@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "MensagemErro.h"
 
 #define MEMORIA  "memoria.txt"
 #define PROGRAMA "programa.txt"
@@ -9,6 +10,8 @@
 #define TAMANHO_MEMORIA 100
 
 char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
+int arrayMemoria[TAMANHO_MEMORIA];
+int sizeArrayMemoria, sizeArrayPrograma;
 
 int isValid(FILE *memoria, FILE *programa){
 
@@ -34,7 +37,7 @@ int lePrograma(FILE *programa){
         return i;
 }
 
-int leMemoria(FILE *memoria, int *array){
+int leMemoria(FILE *memoria){
 
     int posicao = 0;
     char string[TAMANHO_INSTRUCAO];
@@ -44,10 +47,39 @@ int leMemoria(FILE *memoria, int *array){
     while(!feof(memoria)){
 
         fgets(string, sizeof(string), memoria);
-        array[posicao++] = (int) atoi(string);
+        arrayMemoria[posicao++] = (int) atoi(string);
 
     }
 
     return posicao; // RETORNANDO TAMANHO DO ARRAY DE MEMORIA
 
+}
+
+int posicaoMemoria(int posicao){
+
+    /*
+        RETORNA O CONTEUDO DA POSICAO DO ARRAY DE MEMORIA
+    */
+
+    return arrayMemoria[posicao];
+
+}
+
+int getSizeMemoria(){
+    return sizeArrayMemoria;
+}
+
+int getSizePrograma(){
+    return sizeArrayPrograma;
+}
+
+void openFile(FILE *memoria, FILE *programa){
+    if(!isValid(memoria, programa))
+        mostraErro(ERRO_ABERTURA_ARQUIVO);
+
+    if((sizeArrayMemoria = leMemoria(memoria)) <= 1)
+        mostraErro(ERRO_LEITURA_MEMORIA);
+
+    if((sizeArrayPrograma = lePrograma(programa)) <= 1)
+        mostraErro(ERRO_LEITURA_PROGRAMA);
 }
