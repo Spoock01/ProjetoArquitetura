@@ -24,7 +24,22 @@ void mostraErro(int constanteErro){
         break;
     case 3:
         printf("Erro de sintaxe na funcao ADD!\n"
-               "O programa sera encerrado!");
+               "O programa sera encerrado!\n");
+        exit(0);
+        break;
+    case 4:
+        printf("Erro de sintaxe na funcao CMP!\n"
+               "O programa sera encerrado!\n");
+        exit(0);
+        break;
+    case 5:
+        printf("Comando nao reconhecido! Escolha entre SUB OU STORE\n"
+               "O programa sera encerrado!\n");
+        exit(0);
+        break;
+    case 6:
+        printf("Comando nao reconhecido! Escolha entre JG, JE, JL ou JUMP\n"
+               "O programa sera encerrado!\n");
         exit(0);
         break;
 
