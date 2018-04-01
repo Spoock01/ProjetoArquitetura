@@ -42,6 +42,16 @@ void mostraErro(int constanteErro){
                "O programa sera encerrado!\n");
         exit(0);
         break;
+    case 7:
+        printf("Erro de sintaxe na funcao SUB!\n"
+               "O programa sera encerrado!\n");
+        exit(0);
+        break;
+    case 8:
+        printf("Erro de sintaxe na funcao MULT!\n"
+               "O programa sera encerrado!\n");
+        exit(0);
+        break;
 
     }
 

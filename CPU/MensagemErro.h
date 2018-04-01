@@ -8,6 +8,8 @@
 #define ERRO_FUNCAO_CMP 4
 #define ERRO_SUB_STORE 5
 #define ERRO_JUMP_J_EGL 6
+#define ERRO_FUNCAO_SUB 7
+#define ERRO_FUNCAO_MULT 8
 
 void mostraErro(int constanteErro);
 

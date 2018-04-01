@@ -3,8 +3,9 @@
 #include <string.h>
 #include <stdlib.h>
 #define SIZE_REGISTRADORES 10
+#define EXIT_PROGRAM 0
 
-int registrador[10] = {1,1,0,0,0,0,0,0,0,0};
+int registrador[10] = {0,1,2,3,4,5,6,7,8,9};
 int reg1, reg2, cmp = -2;
 int finalFlag = -1;
 char *re1, *re2;
@@ -19,17 +20,6 @@ void printRegistradores(){
 
     printf("\n");
 
-}
-
-int *getFlag(){
-
-    /**
-        Flag responsavel por finalizar laço
-        de execucao do codigo.
-        Se for 0, encerra.
-    */
-
-    return &finalFlag;
 }
 
 char *fetchInstrucao(int IR){
@@ -210,7 +200,7 @@ void funcaoSub(char *instrucao){
         registrador[reg1] = registrador[reg1] - getPosicaoMemoria(reg2);
 
     }else{
-        mostraErro(ERRO_FUNCAO_ADD);
+        mostraErro(ERRO_FUNCAO_SUB);
     }
 
     printRegistradores();
@@ -256,12 +246,96 @@ void funcaoJump(char *instrucao, int *PC){
     *PC = reg1;
 }
 
+void funcaoMult(char *instrucao){
+    //BUSCANDO PRIMEIRO REGISTRADOR
+    re1 = strchr(instrucao,' ');
+    re1++;
+
+    /*
+        REG1 RECEBERA O VALOR DO REGISTRADOR
+        ONDE O RESULTADO DA OPERACAO SERA
+        SALVO
+    */
+    ++re1;
+    reg1 = *re1 - '0';
+
+    //BURSCANDO SEGUNDO REGISTRADOR
+    //OU ENDERECO DE MEMORIA
+    re2 = strchr(instrucao,',');
+    re2++;
+
+    if (*re2 == 'r'){   /**CASO SEJAM 2 REGISTRADORES*/
+
+        /*
+            PEGANDO VALOR DO REGISTRADOR
+            DEPOIS DA LETRA 'R' E CONVERTENDO
+            PARA INTEIRO
+
+            EX: R1 ==> (reg1 = 1)
+        */
+
+        ++re2;
+        reg2 = *re2 - '0';
+
+        /*
+            SOMANDO OS VALORES DOS REGISTRADORES E
+            ARMAZENANDO O RESULTADO NO REG1
+        */
+
+        registrador[reg1] = registrador[reg1] * registrador[reg2];
+
+    }else if(*re2 == 'c'){  /**CASO SEJA CONSTANTE*/
+
+        //REG2 SERA UM INTEIRO COM VALOR CONSTANTE
+        ++re2;
+        reg2 = *re2 - '0';
+
+        registrador[reg1] = registrador[reg1] * reg2;
+
+    } else if(*re2 - '0' >= 0 && *re2 - '0' <= 9){  /**CASO SEJA UMA POSICAO DE MEMORIA*/
+
+        reg2 = *re2 - '0';
+
+        registrador[reg1] = registrador[reg1] * getPosicaoMemoria(reg2);
+
+    }else{
+        mostraErro(ERRO_FUNCAO_MULT);
+    }
+}
+
+void funcaoEscreva(char *instrucao){
+    re1 = strchr(instrucao, ' ');
+    re1 += 2;
+
+    reg1 = (int) atoi(re1);
+
+    printf("%d\n", registrador[reg1]);
+}
+
+void funcaoRet(int *PC){
+    *PC = EXIT_PROGRAM;
+}
+
+void funcaoLoad(char *instrucao){
+    re1 = strchr(instrucao, 'r');
+    re1++;
+
+    reg1 = *re1 - '0';
+
+    re2 = strchr(instrucao, ',');
+    re2++;
+
+    reg2 = (int) atoi(re2);
+
+    registrador[reg1] = getPosicaoMemoria(reg2);
+
+}
+
 int decodificaInstrucao(char *instrucao, int *PC){
 
     switch(instrucao[0]){
 
     case 'A':
-
         funcaoADD(instrucao);
         printRegistradores();
         break;
@@ -269,6 +343,9 @@ int decodificaInstrucao(char *instrucao, int *PC){
         if(instrucao[1] == 'M'){
             funcaoCOMP(instrucao);
         }
+        break;
+    case 'E':
+        funcaoEscreva(instrucao);
         break;
     case 'G':
         funcaoGetInt(instrucao);
@@ -285,6 +362,9 @@ int decodificaInstrucao(char *instrucao, int *PC){
         else
             mostraErro(ERRO_JUMP_J_EGL);
 
+        break;
+    case 'L':
+        funcaoLoad(instrucao);
         break;
     case 'P':
         funcaoPrint(instrucao);
