@@ -22,6 +22,11 @@ void mostraErro(int constanteErro){
                "O programa sera encerrado!\n");
         exit(0);
         break;
+    case 3:
+        printf("Erro de sintaxe na funcao ADD!\n"
+               "O programa sera encerrado!");
+        exit(0);
+        break;
 
     }
 

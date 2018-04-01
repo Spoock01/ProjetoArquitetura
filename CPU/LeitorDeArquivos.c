@@ -65,7 +65,7 @@ int getPosicaoMemoria(int posicao){
 
 }
 
-int setPosicaoMemoria(int posicao, int valor){
+void setPosicaoMemoria(int posicao, int valor){
     arrayMemoria[posicao] = valor;
 }
 
@@ -86,6 +86,11 @@ int getSizePrograma(){
     */
 
     return sizeArrayPrograma;
+}
+
+char *getInstrucao(int IR){
+
+    return arrayPrograma[IR];
 }
 
 void openFile(FILE *memoria, FILE *programa){

@@ -1,22 +1,31 @@
 # depslib dependency file v1.0
-1522445050 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\main.c
+1522602287 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"MensagemErro.h"
 	"LeitorDeArquivos.h"
+	"CPU.h"
 
-1522434974 c:\users\joaov\documents\github\projetoarquitetura\cpu\mensagemerro.h
+1522601147 c:\users\joaov\documents\github\projetoarquitetura\cpu\mensagemerro.h
 
-1522445069 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\mensagemerro.c
+1522601134 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\mensagemerro.c
 	<stdio.h>
 	<stdlib.h>
 
-1522444917 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\leitordearquivos.c
+1522595555 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\leitordearquivos.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"MensagemErro.h"
 
-1522444994 c:\users\joaov\documents\github\projetoarquitetura\cpu\leitordearquivos.h
+1522601371 c:\users\joaov\documents\github\projetoarquitetura\cpu\leitordearquivos.h
+	<stdio.h>
+
+1522601916 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\cpu.c
+	"LeitorDeArquivos.h"
+	"MensagemErro.h"
+	<string.h>
+
+1522601711 c:\users\joaov\documents\github\projetoarquitetura\cpu\cpu.h
 

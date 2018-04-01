@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="CPU.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="CPU.h" />
 		<Unit filename="LeitorDeArquivos.c">
 			<Option compilerVar="CC" />
 		</Unit>

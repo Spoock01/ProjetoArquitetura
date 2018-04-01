@@ -4,6 +4,7 @@
 #define ERRO_ABERTURA_ARQUIVO 0
 #define ERRO_LEITURA_MEMORIA 1
 #define ERRO_LEITURA_PROGRAMA 2
+#define ERRO_FUNCAO_ADD 3
 
 void mostraErro(int constanteErro);
 

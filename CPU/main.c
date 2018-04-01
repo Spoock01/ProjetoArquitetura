@@ -3,8 +3,9 @@
 #include <string.h>
 #include "MensagemErro.h"
 #include "LeitorDeArquivos.h"
+#include "CPU.h"
 
-int PC, IR, MAR, MBR;
+int PC, IR = 0, MAR, MBR;
 
 int main()
 {
@@ -13,7 +14,6 @@ int main()
     FILE *programa = fopen(PROGRAMA, "r");
 
     openFile(memoria, programa);
-
 
     return 0;
 }
