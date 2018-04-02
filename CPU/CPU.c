@@ -369,6 +369,9 @@ int decodificaInstrucao(char *instrucao, int *PC){
     case 'P':
         funcaoPrint(instrucao);
         break;
+    case 'R':
+        funcaoRet(PC);
+        break;
     case 'S':
         if(instrucao[1] == 'U')
             funcaoSub(instrucao);
@@ -383,3 +386,4 @@ int decodificaInstrucao(char *instrucao, int *PC){
 
     return 1;
 }
+

@@ -11,9 +11,11 @@
     Mesmos erros com funcao ADD tambem
     Mesmos erros com funcao MULT tambem
 
+    Mudar parametros de decodificação
+
 */
 
-int PC = -3, IR = 0;
+int PC = 1, IR = 0;
 
 int main()
 {
@@ -22,8 +24,6 @@ int main()
     FILE *programa = fopen(PROGRAMA, "r");
 
     openFile(memoria, programa);
-
-
 
     return 0;
 }

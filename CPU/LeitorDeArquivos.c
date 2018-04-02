@@ -15,7 +15,7 @@ int isValid(FILE *memoria, FILE *programa){
 
     /**
         VERIFICANDO SE OS ARQUIVOS SAO VALIDOS.
-        RETORNA 1 CASO NENHUM DOS PONTEIROS SEHA NULL.s
+        RETORNA 1 CASO NENHUM DOS PONTEIROS SEJA NULL.
     */
     return (memoria == NULL || programa  == NULL) ? 0 : 1;
 
