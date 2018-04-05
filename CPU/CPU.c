@@ -27,7 +27,7 @@ char *re1, *re2;
 int ciclos = 0;
 
 char *fetchInstrucao(int IR){
-    printf("Executando Fetch de instrucao: %d\n\n", ciclos + 1);
+    //printf("Executando Fetch de instrucao: %d\n\n", ciclos + 1);
     return getInstrucao(IR, &ciclos);
 }
 
@@ -229,7 +229,7 @@ void funcaoStore(char *instrucao){
 
         if(reg2 <= (getSizeMemoria() - 1)  && reg2 >= 0){
             setPosicaoMemoria(reg2, registrador[reg1]);
-            printf("Escrita em memoria: %d\n\n", ciclos + 1);
+            //printf("Escrita em memoria: %d\n\n", ciclos + 1);
             salvarRegistradoresArquivo(&ciclos);
         }
 
@@ -335,7 +335,7 @@ void funcaoMult(char *instrucao){
 
         reg2 = *re2 - '0';
 
-        printf("Fetch de Operando: %d\n\n", ciclos);
+        //printf("Fetch de Operando: %d\n\n", ciclos);
         registrador[reg1] = registrador[reg1] * getPosicaoMemoria(reg2, &ciclos);
 
     }else{
@@ -376,7 +376,7 @@ void funcaoLoad(char *instrucao){
         reg2 = (int) atoi(re2);
 
         if(reg2 >= 0 && reg2 <= getSizeMemoria()){
-            printf("Fetch de operando: %d\n\n", ciclos + 1);
+            //printf("Fetch de operando: %d\n\n", ciclos + 1);
             registrador[reg1] = getPosicaoMemoria(reg2, &ciclos);
         }else{
             mostraErro(ERRO_FUNCAO_LOAD);
@@ -418,7 +418,7 @@ void funcaoMove(char *instrucao){
 void funcaoRet(int *PC){
 
     *PC = -1;
-    printf("Numero de ciclos necessarios: %d\n", ciclos);
+    printf("\n\nNumero de ciclos necessarios: %d\n\n", ciclos);
 }
 
 int decodificaInstrucao(char *instrucao){
@@ -544,5 +544,6 @@ void executaInstrucao(char *instrucao, int *PC, int execInstrucao){
 
     }
     ciclos++;
-    printf("Executou instrucao: %d\n\n", ciclos);
+    //printf("Executou instrucao: %d\n\n", ciclos);
 }
+

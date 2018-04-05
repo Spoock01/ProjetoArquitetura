@@ -6,11 +6,6 @@
 #include "LeitorDeArquivos.h"
 #include "CPU.h"
 
-/*
-    FALTANDO CONTAR OS CICLOS
-
-*/
-
 int main(){
 
     int PC = 1, IR = 0, instrucao = 1;
@@ -31,4 +26,3 @@ int main(){
 
     return 0;
 }
-
