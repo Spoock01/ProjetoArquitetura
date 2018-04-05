@@ -23,7 +23,7 @@
 1522967061 c:\users\joaov\documents\github\projetoarquitetura\cpu\leitordearquivos.h
 	<stdio.h>
 
-1522969537 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\cpu.c
+1522969663 source:c:\users\joaov\documents\github\projetoarquitetura\cpu\cpu.c
 	"LeitorDeArquivos.h"
 	"MensagemErro.h"
 	<string.h>
