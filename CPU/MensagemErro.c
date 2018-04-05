@@ -52,6 +52,19 @@ void mostraErro(int constanteErro){
                "O programa sera encerrado!\n");
         exit(0);
         break;
+    case 9:
+        printf("Erro de sintaxe na funcao MOVE!\n"
+               "O programa sera encerrado!\n");
+        exit(0);
+        break;
+    case 10:
+        printf("A posicao de memoria eh invalida! Store nao realizado!\n");
+        break;
+    case 11:
+        printf("Load de posicao invalida da memoria!\n"
+               "O programa sera encerrado!\n");
+        exit(0);
+        break;
 
     }
 

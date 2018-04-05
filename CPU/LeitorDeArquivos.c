@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "MensagemErro.h"
-
+#define MEMORIA  "memoria.txt"
+#define PROGRAMA "programa.txt"
 #define NUM_LINHAS 50
-#define TAMANHO_INSTRUCAO 10
+#define TAMANHO_INSTRUCAO 50
 #define TAMANHO_MEMORIA 100
 
 char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
@@ -55,12 +56,12 @@ int leMemoria(FILE *memoria){
 
 }
 
-int getPosicaoMemoria(int posicao){
+int getPosicaoMemoria(int posicao, int *ciclos){
 
     /**
         RETORNA O CONTEUDO DA POSICAO DO ARRAY DE MEMORIA
     */
-
+    *ciclos = *ciclos + 1;
     return arrayMemoria[posicao];
 
 }
@@ -88,9 +89,23 @@ int getSizePrograma(){
     return sizeArrayPrograma;
 }
 
-char *getInstrucao(int IR){
-
+char *getInstrucao(int IR, int *ciclos){
+    *ciclos = *ciclos + 1;
     return arrayPrograma[IR];
+}
+
+void salvarRegistradoresArquivo(int *ciclos){
+
+    //Abrindo para leitura e escrita
+    FILE *memoria = fopen(MEMORIA, "w+");
+    int i;
+
+    for(i = 0; i < sizeArrayMemoria; i++)
+        fprintf(memoria, "%d\n", arrayMemoria[i]);
+
+    *ciclos = *ciclos + 1;
+
+
 }
 
 void openFile(FILE *memoria, FILE *programa){

@@ -10,6 +10,9 @@
 #define ERRO_JUMP_J_EGL 6
 #define ERRO_FUNCAO_SUB 7
 #define ERRO_FUNCAO_MULT 8
+#define ERRO_FUNCAO_MOVE 9
+#define ERRO_STORE 10
+#define ERRO_FUNCAO_LOAD 11
 
 void mostraErro(int constanteErro);
 

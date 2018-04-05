@@ -4,26 +4,31 @@
 #include <stdlib.h>
 #define SIZE_REGISTRADORES 10
 #define EXIT_PROGRAM 0
+#define RET 0
+#define ADD 1
+#define COMP 2
+#define ESCREVA 3
+#define GETINT 4
+#define JE 5
+#define JG 6
+#define JL 7
+#define JUMP 8
+#define LOAD 9
+#define MOVE 10
+#define PRINT 11
+#define MUL 12
+#define SUB 13
+#define STORE 14
 
 int registrador[10] = {0,1,2,3,4,5,6,7,8,9};
 int reg1, reg2, cmp = -2;
 int finalFlag = -1;
 char *re1, *re2;
-
-void printRegistradores(){
-
-    int i;
-
-    for(i = 0; i < SIZE_REGISTRADORES; i++){
-        printf("%d ", registrador[i]);
-    }
-
-    printf("\n");
-
-}
+int ciclos = 0;
 
 char *fetchInstrucao(int IR){
-    return getInstrucao(IR);
+    printf("Executando Fetch de instrucao: %d\n\n", ciclos + 1);
+    return getInstrucao(IR, &ciclos);
 }
 
 void funcaoADD(char *instrucao){
@@ -69,7 +74,7 @@ void funcaoADD(char *instrucao){
 
         //REG2 SERA UM INTEIRO COM VALOR CONSTANTE
         ++re2;
-        reg2 = *re2 - '0';
+        reg2 = (int) atoi(re2);
 
         registrador[reg1] = registrador[reg1] + reg2;
 
@@ -77,7 +82,9 @@ void funcaoADD(char *instrucao){
 
         reg2 = *re2 - '0';
 
-        registrador[reg1] = registrador[reg1] + getPosicaoMemoria(reg2);
+
+        ("Fetch de OPERANDO: %d\n\n", ciclos + 1);
+        registrador[reg1] = registrador[reg1] + getPosicaoMemoria(reg2, &ciclos);
 
     }else{
         mostraErro(ERRO_FUNCAO_ADD);
@@ -143,7 +150,7 @@ void funcaoPrint(char *instrucao){
     re1 = strchr(instrucao, ' ');
     re1++;
 
-    printf("%s\n", re1);
+    printf("%s", re1);
 
 }
 
@@ -189,7 +196,7 @@ void funcaoSub(char *instrucao){
 
         //REG2 SERA UM INTEIRO COM VALOR CONSTANTE
         ++re2;
-        reg2 = *re2 - '0';
+        reg2 = (int) atoi(re2);
 
         registrador[reg1] = registrador[reg1] - reg2;
 
@@ -197,44 +204,76 @@ void funcaoSub(char *instrucao){
 
         reg2 = *re2 - '0';
 
-        registrador[reg1] = registrador[reg1] - getPosicaoMemoria(reg2);
+        registrador[reg1] = registrador[reg1] - getPosicaoMemoria(reg2, &ciclos);
 
     }else{
         mostraErro(ERRO_FUNCAO_SUB);
     }
 
-    printRegistradores();
 }
 
 void funcaoStore(char *instrucao){
 
+    re1 = strchr(instrucao, ' ');
+    re1++;
+
+    re2 = strchr(instrucao, ',');
+    re2++;
+
+    if(*re1 == 'r'){
+
+        re1++;
+        reg1 = *re1 - '0';
+
+        reg2 = (int) atoi(re2);
+
+        if(reg2 <= (getSizeMemoria() - 1)  && reg2 >= 0){
+            setPosicaoMemoria(reg2, registrador[reg1]);
+            printf("Escrita em memoria: %d\n\n", ciclos + 1);
+            salvarRegistradoresArquivo(&ciclos);
+        }
+
+        else
+            mostraErro(ERRO_STORE);
+
+    }
+
 }
 
 void funcaoJG(char *instrucao, int *PC){
-    re1 = strchr(instrucao, ' ');
-    re1++;
 
-    reg1 = (int) atoi(re1);
+    if(cmp == 1){
+        re1 = strchr(instrucao, ' ');
+        re1++;
 
-    *PC = reg1;
+        reg1 = (int) atoi(re1);
+
+        *PC = reg1;
+    }
+
+
 }
 
 void funcaoJE(char *instrucao, int *PC){
-    re1 = strchr(instrucao, ' ');
-    re1++;
+    if(cmp == 0){
+        re1 = strchr(instrucao, ' ');
+        re1++;
 
-    reg1 = (int) atoi(re1);
+        reg1 = (int) atoi(re1);
 
-    *PC = reg1;
+        *PC = reg1;
+    }
 }
 
 void funcaoJL(char *instrucao, int *PC){
-    re1 = strchr(instrucao, ' ');
-    re1++;
+    if(cmp == -1){
+        re1 = strchr(instrucao, ' ');
+        re1++;
 
-    reg1 = (int) atoi(re1);
+        reg1 = (int) atoi(re1);
 
-    *PC = reg1;
+        *PC = reg1;
+    }
 }
 
 void funcaoJump(char *instrucao, int *PC){
@@ -288,7 +327,7 @@ void funcaoMult(char *instrucao){
 
         //REG2 SERA UM INTEIRO COM VALOR CONSTANTE
         ++re2;
-        reg2 = *re2 - '0';
+        reg2 = (int) atoi(re2);
 
         registrador[reg1] = registrador[reg1] * reg2;
 
@@ -296,7 +335,8 @@ void funcaoMult(char *instrucao){
 
         reg2 = *re2 - '0';
 
-        registrador[reg1] = registrador[reg1] * getPosicaoMemoria(reg2);
+        printf("Fetch de Operando: %d\n\n", ciclos);
+        registrador[reg1] = registrador[reg1] * getPosicaoMemoria(reg2, &ciclos);
 
     }else{
         mostraErro(ERRO_FUNCAO_MULT);
@@ -312,10 +352,6 @@ void funcaoEscreva(char *instrucao){
     printf("%d\n", registrador[reg1]);
 }
 
-void funcaoRet(int *PC){
-    *PC = EXIT_PROGRAM;
-}
-
 void funcaoLoad(char *instrucao){
     re1 = strchr(instrucao, 'r');
     re1++;
@@ -325,65 +361,188 @@ void funcaoLoad(char *instrucao){
     re2 = strchr(instrucao, ',');
     re2++;
 
-    reg2 = (int) atoi(re2);
+    // SE FOR LOAD DE CONSTANTE
+    if(*re2 == 'c'){
+        re2++;
+        reg2 = (int) atoi (re2);
 
-    registrador[reg1] = getPosicaoMemoria(reg2);
+        registrador[reg1] = reg2;
+
+    }else{  // SE FOR LOAD DA MEMORIA
+
+        re2 = strchr(instrucao, ',');
+        re2++;
+
+        reg2 = (int) atoi(re2);
+
+        if(reg2 >= 0 && reg2 <= getSizeMemoria()){
+            printf("Fetch de operando: %d\n\n", ciclos + 1);
+            registrador[reg1] = getPosicaoMemoria(reg2, &ciclos);
+        }else{
+            mostraErro(ERRO_FUNCAO_LOAD);
+        }
+
+    }
+
+
 
 }
 
-int decodificaInstrucao(char *instrucao, int *PC){
+void funcaoMove(char *instrucao){
+
+    re1 = strchr(instrucao, ' ');
+    re1++;
+
+    re2 = strchr(instrucao, ',');
+    re2++;
+
+    if(*re1 == 'r' && *re2 == 'r'){
+
+        re1++; re2++;
+
+        reg1 = *re1 - '0';
+        reg2 = *re2 - '0';
+
+        /*
+            Movendo valor do registrador 2 para
+            registrador 1
+        */
+        registrador[reg1] = registrador[reg2];
+
+    }else{
+        mostraErro(ERRO_FUNCAO_MOVE);
+    }
+
+}
+
+void funcaoRet(int *PC){
+
+    *PC = -1;
+    printf("Numero de ciclos necessarios: %d\n", ciclos);
+}
+
+int decodificaInstrucao(char *instrucao){
 
     switch(instrucao[0]){
 
     case 'A':
-        funcaoADD(instrucao);
-        printRegistradores();
-        break;
+        return ADD;
+
     case 'C':
-        if(instrucao[1] == 'M'){
-            funcaoCOMP(instrucao);
-        }
-        break;
+        if(instrucao[1] == 'O')
+            return COMP;
+
     case 'E':
-        funcaoEscreva(instrucao);
-        break;
+        return ESCREVA;
+
     case 'G':
-        funcaoGetInt(instrucao);
-        break;
+        return GETINT;
+
     case 'J':
+
         if(instrucao[1] == 'G')
-            funcaoJG(instrucao, PC);
+            return JG;
         else if(instrucao[1] == 'E')
-            funcaoJE(instrucao, PC);
+            return JE;
         else if(instrucao[1] == 'L')
-            funcaoJL(instrucao, PC);
+            return JL;
         else if(instrucao[1] == 'U')
-            funcaoJump(instrucao, PC);
+            return JUMP;
         else
             mostraErro(ERRO_JUMP_J_EGL);
+        break;
 
-        break;
     case 'L':
-        funcaoLoad(instrucao);
-        break;
+        return LOAD;
+
+    case 'M':
+        return MOVE;
+
     case 'P':
-        funcaoPrint(instrucao);
-        break;
+        return PRINT;
+
     case 'R':
-        funcaoRet(PC);
-        break;
+        return RET;
+
     case 'S':
         if(instrucao[1] == 'U')
-            funcaoSub(instrucao);
+            return SUB;
         else if(instrucao[1] == 'T')
-            funcaoStore(instrucao);
+            return STORE;
         else
             mostraErro(ERRO_SUB_STORE);
 
         break;
-
     }
+    return -1;
 
-    return 1;
 }
 
+void executaInstrucao(char *instrucao, int *PC, int execInstrucao){
+
+    switch(execInstrucao){
+
+    case RET:
+        funcaoRet(PC);
+        break;
+
+    case ADD:
+        funcaoADD(instrucao);
+        break;
+
+    case COMP:
+        funcaoCOMP(instrucao);
+        break;
+
+    case ESCREVA:
+        funcaoEscreva(instrucao);
+        break;
+
+    case GETINT:
+        funcaoGetInt(instrucao);
+        break;
+
+    case JE:
+        funcaoJE(instrucao, PC);
+        break;
+
+    case JG:
+        funcaoJG(instrucao, PC);
+        break;
+
+    case JL:
+        funcaoJL(instrucao, PC);
+        break;
+
+    case JUMP:
+        funcaoJump(instrucao, PC);
+        break;
+
+    case LOAD:
+        funcaoLoad(instrucao);
+        break;
+
+    case MOVE:
+        funcaoMove(instrucao);
+        break;
+
+    case PRINT:
+        funcaoPrint(instrucao);
+        break;
+
+    case MUL:
+        funcaoMult(instrucao);
+        break;
+
+    case SUB:
+        funcaoSub(instrucao);
+        break;
+
+    case STORE:
+        funcaoStore(instrucao);
+        break;
+
+    }
+    ciclos++;
+    printf("Executou instrucao: %d\n\n", ciclos);
+}
