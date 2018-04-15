@@ -1,7 +1,7 @@
 #ifndef LEITORDEARQUIVOS
 #define LEITORDEARQUIVOS
 #define MEMORIA "memoria.txt"
-#define PROGRAMA "programaAdivinhe.txt"
+#define PROGRAMA "programa.txt"
 #include <stdio.h>
 
 
