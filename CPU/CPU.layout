@@ -2,30 +2,6 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="MensagemErro.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="384" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="MensagemErro.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2086" topLine="17" />
-		</Cursor>
-	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="361" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="CPU.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="671" topLine="14" />
-		</Cursor>
-		<Folding>
-			<Collapse line="28" />
-			<Collapse line="33" />
-		</Folding>
-	</File>
 	<File name="CPU.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="173" topLine="0" />
@@ -33,17 +9,62 @@
 	</File>
 	<File name="LeitorDeArquivos.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2263" topLine="0" />
+			<Cursor1 position="147" topLine="0" />
 		</Cursor>
 		<Folding>
 			<Collapse line="14" />
 			<Collapse line="24" />
 			<Collapse line="40" />
+			<Collapse line="58" />
+			<Collapse line="68" />
+			<Collapse line="72" />
+			<Collapse line="81" />
+			<Collapse line="91" />
+			<Collapse line="96" />
+			<Collapse line="110" />
+		</Folding>
+	</File>
+	<File name="MensagemErro.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2086" topLine="17" />
+		</Cursor>
+	</File>
+	<File name="MensagemErro.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="384" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="CPU.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10903" topLine="35" />
+		</Cursor>
+		<Folding>
+			<Collapse line="27" />
+			<Collapse line="32" />
+			<Collapse line="92" />
+			<Collapse line="138" />
+			<Collapse line="146" />
+			<Collapse line="155" />
+			<Collapse line="213" />
+			<Collapse line="255" />
+			<Collapse line="266" />
+			<Collapse line="277" />
+			<Collapse line="286" />
+			<Collapse line="344" />
+			<Collapse line="353" />
+			<Collapse line="389" />
+			<Collapse line="416" />
+			<Collapse line="423" />
 		</Folding>
 	</File>
 	<File name="LeitorDeArquivos.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="399" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="548" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

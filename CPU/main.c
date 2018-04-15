@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include "MensagemErro.h"
 #include "LeitorDeArquivos.h"
 #include "CPU.h"
@@ -23,6 +22,8 @@ int main(){
         IR = PC;
 
     }
+
+    salvarRegistradoresArquivo();
 
     return 0;
 }

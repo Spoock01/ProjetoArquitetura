@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "MensagemErro.h"
-#define MEMORIA  "memoria.txt"
-#define PROGRAMA "programa.txt"
+#define MEMORIA "memoria.txt"
 #define NUM_LINHAS 50
 #define TAMANHO_INSTRUCAO 50
 #define TAMANHO_MEMORIA 100
@@ -94,7 +93,7 @@ char *getInstrucao(int IR, int *ciclos){
     return arrayPrograma[IR];
 }
 
-void salvarRegistradoresArquivo(int *ciclos){
+void salvarRegistradoresArquivo(){
 
     //Abrindo para leitura e escrita
     FILE *memoria = fopen(MEMORIA, "w+");
@@ -102,9 +101,6 @@ void salvarRegistradoresArquivo(int *ciclos){
 
     for(i = 0; i < sizeArrayMemoria; i++)
         fprintf(memoria, "%d\n", arrayMemoria[i]);
-
-    *ciclos = *ciclos + 1;
-
 
 }
 
