@@ -10,4 +10,5 @@ Ubuntu:  gcc -o main main.c CPU.c CPU.h LeitorDeArquivos.c LeitorDeArquivos.h Me
 COMO EXECUTAR:
 
 Windows: Executar arquivo main.exe
+
 Ubuntu:  ./main
