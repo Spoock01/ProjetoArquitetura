@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-//DEFINES
+
 #define SIZE_REGISTRADORES 10
 #define EXIT_PROGRAM 0
 #define RET 0
@@ -23,26 +23,37 @@
 #define STORE 14
 #define REGISTRADOR 'r'
 
-// MACROS
+
 #define CHAR_TO_INT(r) (r - '0');
 #define SEARCH_SPACE(instrucao) strchr(instrucao, ' ');
 #define STRING_TO_INT(r) ((int) atoi(r));
 
-//VARIAVEIS GLOBAIS
+
 int registrador[10] = {0,0,0,0,0,0,0,0,0,0};
 int reg1, reg2, cmp = -2;
 char *re1, *re2;
 int ciclos = 0;
+int miss = 0, hit = 0;
+tCache cache;
 
-//FUNCOES
+void initCache(){
+    int i;
+
+    for(i = 0; i < CACHE_SIZE; i++){
+        cache.myCache[i].instrucao = "";
+        cache.myCache[i].posMemoria = -1;
+        cache.myCache[i].valMemoria = -1;
+        cache.myCache[i].tag = -1;
+    }
+}
 
 char *fetchInstrucao(int IR){
-    return getInstrucao(IR, &ciclos);
+    return getInstrucao(IR, &ciclos, &miss, &cache, &hit);
 }
 
 void funcaoADD(char *instrucao){
 
-    //BUSCANDO PRIMEIRO REGISTRADOR
+    /*BUSCANDO PRIMEIRO REGISTRADOR*/
     re1 = SEARCH_SPACE(instrucao);
     re1++;
 
@@ -54,7 +65,7 @@ void funcaoADD(char *instrucao){
     ++re1;
     reg1 = CHAR_TO_INT(*re1);
 
-    //BURSCANDO SEGUNDO REGISTRADOR
+    //BUSCANDO SEGUNDO REGISTRADOR
     //OU ENDERECO DE MEMORIA
     re2 = strchr(instrucao,',');
     re2++;
@@ -91,7 +102,7 @@ void funcaoADD(char *instrucao){
 
         reg2 = CHAR_TO_INT(*re2);
 
-        registrador[reg1] = registrador[reg1] + getPosicaoMemoria(reg2, &ciclos);
+        registrador[reg1] = registrador[reg1] + getPosicaoMemoria(reg2, &ciclos, &miss, &cache, &hit);
 
     }else{
         mostraErro(ERRO_FUNCAO_ADD);
@@ -211,7 +222,7 @@ void funcaoSub(char *instrucao){
 
         reg2 = CHAR_TO_INT(*re2);
 
-        registrador[reg1] = registrador[reg1] - getPosicaoMemoria(reg2, &ciclos);
+        registrador[reg1] = registrador[reg1] - getPosicaoMemoria(reg2, &ciclos, &miss, &cache, &hit);
 
     }else{
         mostraErro(ERRO_FUNCAO_SUB);
@@ -341,7 +352,7 @@ void funcaoMult(char *instrucao){
         reg2 = CHAR_TO_INT(*re2);
 
         //printf("Fetch de Operando: %d\n\n", ciclos);
-        registrador[reg1] = registrador[reg1] * getPosicaoMemoria(reg2, &ciclos);
+        registrador[reg1] = registrador[reg1] * getPosicaoMemoria(reg2, &ciclos, &miss, &cache, &hit);
 
     }else{
         mostraErro(ERRO_FUNCAO_MULT);
@@ -381,7 +392,7 @@ void funcaoLoad(char *instrucao){
         reg2 = STRING_TO_INT(re2);
 
         if(reg2 >= 0 && reg2 <= getSizeMemoria()){
-            registrador[reg1] = getPosicaoMemoria(reg2, &ciclos);
+            registrador[reg1] = getPosicaoMemoria(reg2, &ciclos, &miss, &cache, &hit);
         }else{
             mostraErro(ERRO_FUNCAO_LOAD);
         }
@@ -423,6 +434,11 @@ void funcaoRet(int *PC){
 
     *PC = -1;
     printf("\n\nNumero de ciclos necessarios: %d\n\n", ciclos);
+
+    int total = miss + hit;
+
+    printf("Porcentagem de Cache Hit: %d%% Cache Miss: %d Cache Hit %d\n\n",
+           (hit * 100)/total, miss, hit);
 
 }
 

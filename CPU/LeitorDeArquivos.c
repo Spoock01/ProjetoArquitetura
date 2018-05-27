@@ -10,6 +10,7 @@
 char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
 int arrayMemoria[TAMANHO_MEMORIA];
 int sizeArrayMemoria, sizeArrayPrograma;
+int indexCacheInsertion = 0;
 
 int isValid(FILE *memoria, FILE *programa){
 
@@ -55,12 +56,45 @@ int leMemoria(FILE *memoria){
 
 }
 
-int getPosicaoMemoria(int posicao, int *ciclos){
+int getPosicaoMemoria(int posicao, int *ciclos, int *miss, tCache *cache, int *hit){
 
-    /**
+    /*
         RETORNA O CONTEUDO DA POSICAO DO ARRAY DE MEMORIA
     */
     *ciclos = *ciclos + 1;
+
+    /** =======  BUSCA DE OPERANDO EM CACHE ========= */
+
+    int i;
+
+    for(i = 0; i < CACHE_SIZE; i++){
+
+        if(cache->myCache[i].tag == CACHE_OPERAND && cache->myCache[i].posMemoria == posicao){
+            *hit = *hit + 1;
+            return cache->myCache[i].valMemoria;// Cache Hit
+        }
+
+    }
+
+    /* Cache Miss */
+    *miss = *miss + 1;
+
+    cache->myCache[indexCacheInsertion].tag = CACHE_OPERAND;
+    cache->myCache[indexCacheInsertion].posMemoria = posicao;
+    cache->myCache[indexCacheInsertion].valMemoria = arrayMemoria[posicao];
+    cache->myCache[indexCacheInsertion].instrucao = "";
+
+    indexCacheInsertion = ((indexCacheInsertion + 1) % CACHE_SIZE);
+
+    /*  A operacao acima simula a insercao em cache
+        utilizando a ideia do algoritmo FIFO, ou seja,
+        a primeira posicao de cache ocupada sera a primeira
+        a ser removida caso a cache fique cheia.
+    */
+
+
+    /** =======  FIM DA BUSCA DE OPERANDO EM CACHE   */
+
     return arrayMemoria[posicao];
 
 }
@@ -88,8 +122,48 @@ int getSizePrograma(){
     return sizeArrayPrograma;
 }
 
-char *getInstrucao(int IR, int *ciclos){
+char *getInstrucao(int IR, int *ciclos, int *miss, tCache *cache, int *hit){
     *ciclos = *ciclos + 1;
+
+    /** ===ADICIONANDO BUSCA DAS INSTRUCOES EM CACHE====== */
+    int i;
+
+    for(i = 0; i < CACHE_SIZE; i++){
+        /*
+            Caso a posicao da cache seja instrucao
+            e tambem seja a instrucao procurada
+        */
+
+
+        if(cache->myCache[i].tag == CACHE_INSTRUCTION && cache->myCache[i].posMemoria == IR){
+            *hit = *hit + 1;
+
+            return cache->myCache[i].instrucao; // Ocorreu Hit
+        }
+
+    }
+
+    // Se deu miss
+    *miss = *miss + 1;
+
+    cache->myCache[indexCacheInsertion].tag = CACHE_INSTRUCTION;
+    cache->myCache[indexCacheInsertion].posMemoria = IR;
+    cache->myCache[indexCacheInsertion].valMemoria = -1;
+    cache->myCache[indexCacheInsertion].instrucao = arrayPrograma[IR];
+
+    indexCacheInsertion = ((indexCacheInsertion + 1) % CACHE_SIZE);
+
+    /*  A operacao acima simula a insercao em cache
+        utilizando a ideia do algoritmo FIFO, ou seja,
+        a primeira posicao de cache ocupada sera a primeira
+        a ser removida caso a cache fique cheia.
+    */
+
+
+
+    /** ===== FIM DA BUSCA NA CACHE ============ */
+
+
     return arrayPrograma[IR];
 }
 
@@ -125,3 +199,18 @@ void openFile(FILE *memoria, FILE *programa){
     if((sizeArrayPrograma = lePrograma(programa)) <= 1)
         mostraErro(ERRO_LEITURA_PROGRAMA);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -5,6 +5,7 @@
 #include "LeitorDeArquivos.h"
 #include "CPU.h"
 
+
 int main(){
 
     int PC = 1, IR = 0, instrucao = 1;
@@ -12,6 +13,7 @@ int main(){
     FILE *programa = fopen(PROGRAMA, "r");
 
     openFile(memoria, programa);
+    initCache();
 
     while(PC > 0){
 
