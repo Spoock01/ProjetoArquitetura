@@ -67,7 +67,7 @@ int getPosicaoMemoria(int posicao, int *ciclos, int *miss, tCache *cache, int *h
 
     int i;
 
-    for(i = 0; i < CACHE_SIZE; i++){
+    for(i = 0; i < cache->size; i++){
 
         if(cache->myCache[i].tag == CACHE_OPERAND && cache->myCache[i].posMemoria == posicao){
             *hit = *hit + 1;
@@ -84,7 +84,7 @@ int getPosicaoMemoria(int posicao, int *ciclos, int *miss, tCache *cache, int *h
     cache->myCache[indexCacheInsertion].valMemoria = arrayMemoria[posicao];
     cache->myCache[indexCacheInsertion].instrucao = "";
 
-    indexCacheInsertion = ((indexCacheInsertion + 1) % CACHE_SIZE);
+    indexCacheInsertion = ((indexCacheInsertion + 1) % cache->size);
 
     /*  A operacao acima simula a insercao em cache
         utilizando a ideia do algoritmo FIFO, ou seja,
@@ -128,7 +128,7 @@ char *getInstrucao(int IR, int *ciclos, int *miss, tCache *cache, int *hit){
     /** ===ADICIONANDO BUSCA DAS INSTRUCOES EM CACHE====== */
     int i;
 
-    for(i = 0; i < CACHE_SIZE; i++){
+    for(i = 0; i < cache->size; i++){
         /*
             Caso a posicao da cache seja instrucao
             e tambem seja a instrucao procurada
@@ -151,7 +151,7 @@ char *getInstrucao(int IR, int *ciclos, int *miss, tCache *cache, int *hit){
     cache->myCache[indexCacheInsertion].valMemoria = -1;
     cache->myCache[indexCacheInsertion].instrucao = arrayPrograma[IR];
 
-    indexCacheInsertion = ((indexCacheInsertion + 1) % CACHE_SIZE);
+    indexCacheInsertion = ((indexCacheInsertion + 1) % cache->size);
 
     /*  A operacao acima simula a insercao em cache
         utilizando a ideia do algoritmo FIFO, ou seja,

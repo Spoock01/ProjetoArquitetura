@@ -1,14 +1,13 @@
-PRINT FATORIAL!!!
-PRINT Digite um numero(Entre 0-16): 
-GETINT r0
+PRINT FATORIAL!
+LOAD r0,c15
 LOAD r1,c1
 LOAD r2,c1
 COMP r2,r0
 JG 10
-MUL r1,r2
+MULT r1,r2
 ADD r2,c1
-JUMP 5
-PRINT O resultado eh: 
+JUMP 4
+PRINT O resultado eh:
 ESCREVA r1
-STORE r1,20
-RET 0
+STORE r1,10
+RET

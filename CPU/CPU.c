@@ -29,22 +29,49 @@
 #define STRING_TO_INT(r) ((int) atoi(r));
 
 
-int registrador[10] = {0,0,0,0,0,0,0,0,0,0};
+int registrador[SIZE_REGISTRADORES] = {0,0,0,0,0,0,0,0,0,0};
 int reg1, reg2, cmp = -2;
 char *re1, *re2;
 int ciclos = 0;
 int miss = 0, hit = 0;
 tCache cache;
 
+void create_cache(int size){
+    cache.myCache = NULL;
+    cache.myCache = (struct cache*)malloc(sizeof(struct cache) * size);
+    cache.size = size;
+
+    if(cache.myCache == NULL){
+        printf("Erro ao criar cache!!\n"
+               "O programa sera encerrado!");
+        exit(0);
+    }
+}
+
 void initCache(){
     int i;
 
-    for(i = 0; i < CACHE_SIZE; i++){
+    for(i = 0; i < cache.size; i++){
         cache.myCache[i].instrucao = "";
         cache.myCache[i].posMemoria = -1;
         cache.myCache[i].valMemoria = -1;
         cache.myCache[i].tag = -1;
     }
+
+    /*for(i = 0; i < cache.size; i++){
+        printf("Ins: %s\nIndexMemmo: %d\nValMemmo: %d\nTag: %d\n\n",
+               cache.myCache[i].instrucao,cache.myCache[i].posMemoria,cache.myCache[i].valMemoria, cache.myCache[i].tag);
+    }*/
+}
+
+void init_program(int size){
+    create_cache(size);
+    initCache();
+
+    for(int i = 0; i < SIZE_REGISTRADORES; i++)
+        registrador[i] = 0;
+
+    miss = hit = ciclos = 0;
 }
 
 char *fetchInstrucao(int IR){
@@ -433,13 +460,12 @@ void funcaoMove(char *instrucao){
 void funcaoRet(int *PC){
 
     *PC = -1;
-    printf("\n\nNumero de ciclos necessarios: %d\n\n", ciclos);
+}
 
-    int total = miss + hit;
+void grafPrint(){
 
-    printf("Porcentagem de Cache Hit: %d%% Cache Miss: %d Cache Hit %d\n\n",
-           (hit * 100)/total, miss, hit);
-
+    printf("CACHE SIZE: %5d Ciclos: %5d Cache_HIT: %5d Cache_MISS: %5d Porcentagem_CACHE_HIT: %5d\n\n",
+           cache.size, ciclos, hit, miss, (hit * 100)/(hit + miss));
 }
 
 int decodificaInstrucao(char *instrucao){

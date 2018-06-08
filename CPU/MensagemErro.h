@@ -14,8 +14,6 @@
 #define ERRO_STORE 10
 #define ERRO_FUNCAO_LOAD 11
 
-
-#define CACHE_SIZE 8
 #define CACHE_INSTRUCTION 0
 #define CACHE_OPERAND 1
 
@@ -28,8 +26,8 @@ typedef struct cache{
 } cacheData;
 
 typedef struct tCache{
-    cacheData myCache[CACHE_SIZE];
+    cacheData *myCache;
+    int size;
 } tCache;
-
 
 #endif

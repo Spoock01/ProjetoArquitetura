@@ -8,23 +8,33 @@
 
 int main(){
 
-    int PC = 1, IR = 0, instrucao = 1;
+    int PC, IR, instrucao = 1, i;
     FILE *memoria = fopen(MEMORIA, "r");
     FILE *programa = fopen(PROGRAMA, "r");
+    int cacheSize = 2;
 
     openFile(memoria, programa);
-    initCache();
 
-    while(PC > 0){
+    for(i = 0; i < 6; i++){
+        PC = 1;
+        IR = 0;
+        instrucao = 1;
 
-        char *linhaComando = fetchInstrucao(IR);
-        PC = IR + 1;
-        instrucao = decodificaInstrucao(linhaComando);
-        executaInstrucao(linhaComando, &PC, instrucao);
-        IR = PC;
+        init_program(cacheSize);
+
+        while(PC >= 0){
+
+            char *linhaComando = fetchInstrucao(IR);
+            PC = IR + 1;
+            instrucao = decodificaInstrucao(linhaComando);
+            executaInstrucao(linhaComando, &PC, instrucao);
+            IR = PC;
+
+        }
+        grafPrint();
+        cacheSize = cacheSize * 2;
 
     }
-
     salvarRegistradoresArquivo();
 
     return 0;

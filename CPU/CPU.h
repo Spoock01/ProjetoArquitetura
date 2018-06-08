@@ -3,7 +3,8 @@
 #include "LeitorDeArquivos.h"
 
 char *fetchInstrucao(int IR);
-void initCache();
+void init_program(int size);
+void grafPrint();
 int decodificaInstrucao(char *instrucao);
 void executaInstrucao(char *instrucao, int *PC, int execInstrucao);
 
