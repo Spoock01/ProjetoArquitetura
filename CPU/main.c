@@ -11,11 +11,11 @@ int main(){
     int PC, IR, instrucao = 1, i;
     FILE *memoria = fopen(MEMORIA, "r");
     FILE *programa = fopen(PROGRAMA, "r");
-    int cacheSize = 2;
+    int cacheSize = 1;
 
     openFile(memoria, programa);
 
-    for(i = 0; i < 6; i++){
+    for(i = 0; i < 10; i++){
         PC = 1;
         IR = 0;
         instrucao = 1;

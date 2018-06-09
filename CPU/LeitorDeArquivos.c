@@ -3,9 +3,9 @@
 #include <string.h>
 #include "MensagemErro.h"
 #define MEMORIA "memoria.txt"
-#define NUM_LINHAS 50
-#define TAMANHO_INSTRUCAO 50
-#define TAMANHO_MEMORIA 100
+#define NUM_LINHAS 200
+#define TAMANHO_INSTRUCAO 200
+#define TAMANHO_MEMORIA 200
 
 char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
 int arrayMemoria[TAMANHO_MEMORIA];
