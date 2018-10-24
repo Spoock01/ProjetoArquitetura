@@ -4,7 +4,9 @@
 #include "MensagemErro.h"
 #include "LeitorDeArquivos.h"
 #include "CPU.h"
+#include "ConstantesEMacros.h"
 
+ //int decodificaInstrucao(char *instrucao);
 
 int main(){
 
@@ -14,6 +16,7 @@ int main(){
     int cacheSize = 1;
 
     openFile(memoria, programa);
+
 
     for(i = 0; i < 10; i++){
         PC = 1;
@@ -32,7 +35,7 @@ int main(){
 
         }
         grafPrint();
-        cacheSize = cacheSize * 2;
+        cacheSize = cacheSize * TWO;
 
     }
     salvarRegistradoresArquivo();

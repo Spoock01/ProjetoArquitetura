@@ -34,3 +34,43 @@
 
 1522966697 c:\users\joaov\documents\github\projetoarquitetura\cpu\clock.h
 
+1540388271 source:c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\cpu.c
+	"LeitorDeArquivos.h"
+	"MensagemErro.h"
+	<string.h>
+	<stdlib.h>
+	"ConstantesEMacros.h"
+
+1540342943 c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\leitordearquivos.h
+	<stdio.h>
+	"MensagemErro.h"
+
+1540342971 c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\mensagemerro.h
+	"ConstantesEMacros.h"
+
+1540387808 source:c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\leitordearquivos.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"MensagemErro.h"
+	"ConstantesEMacros.h"
+	"CPU.h"
+
+1540338652 source:c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\mensagemerro.c
+	<stdio.h>
+	<stdlib.h>
+
+1540339044 c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\constantesemacros.h
+
+1540388079 source:c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"MensagemErro.h"
+	"LeitorDeArquivos.h"
+	"CPU.h"
+	"ConstantesEMacros.h"
+
+1540388584 c:\users\joaov\documents\github\projetoarquitetura-master\projetoarquitetura\cpu\cpu.h
+	"LeitorDeArquivos.h"
+

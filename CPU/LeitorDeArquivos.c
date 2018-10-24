@@ -2,15 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "MensagemErro.h"
-#define MEMORIA "memoria.txt"
-#define NUM_LINHAS 200
-#define TAMANHO_INSTRUCAO 200
-#define TAMANHO_MEMORIA 200
+#include "ConstantesEMacros.h"
+#include "CPU.h"
 
-char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
-int arrayMemoria[TAMANHO_MEMORIA];
-int sizeArrayMemoria, sizeArrayPrograma;
-int indexCacheInsertion = 0;
+static char arrayPrograma[NUM_LINHAS][TAMANHO_INSTRUCAO];
+static int arrayMemoria[TAMANHO_MEMORIA];
+static int sizeArrayMemoria, sizeArrayPrograma;
+static int indexCacheInsertion = 0;
 
 int isValid(FILE *memoria, FILE *programa){
 
@@ -56,7 +54,7 @@ int leMemoria(FILE *memoria){
 
 }
 
-int getPosicaoMemoria(int posicao, int *ciclos, int *miss, tCache *cache, int *hit){
+inline int getPosicaoMemoria(int posicao, int *ciclos, int *miss, tCache *cache, int *hit){
 
     /*
         RETORNA O CONTEUDO DA POSICAO DO ARRAY DE MEMORIA
@@ -122,7 +120,7 @@ int getSizePrograma(){
     return sizeArrayPrograma;
 }
 
-char *getInstrucao(int IR, int *ciclos, int *miss, tCache *cache, int *hit){
+inline char *getInstrucao(int IR, int *ciclos, int *miss, tCache *cache, int *hit){
     *ciclos = *ciclos + 1;
 
     /** ===ADICIONANDO BUSCA DAS INSTRUCOES EM CACHE====== */
@@ -176,6 +174,7 @@ void salvarRegistradoresArquivo(){
     for(i = 0; i < sizeArrayMemoria; i++)
         fprintf(memoria, "%d\n", arrayMemoria[i]);
 
+    fclose(memoria);
 }
 
 void openFile(FILE *memoria, FILE *programa){

@@ -2,41 +2,19 @@
 #include "MensagemErro.h"
 #include <string.h>
 #include <stdlib.h>
+#include "ConstantesEMacros.h"
 
-
-#define SIZE_REGISTRADORES 10
-#define EXIT_PROGRAM 0
-#define RET 0
-#define ADD 1
-#define COMP 2
-#define ESCREVA 3
-#define GETINT 4
-#define JE 5
-#define JG 6
-#define JL 7
-#define JUMP 8
-#define LOAD 9
-#define MOVE 10
-#define PRINT 11
-#define MUL 12
-#define SUB 13
-#define STORE 14
-#define REGISTRADOR 'r'
-
-
-#define CHAR_TO_INT(r) (r - '0');
-#define SEARCH_SPACE(instrucao) strchr(instrucao, ' ');
-#define STRING_TO_INT(r) ((int) atoi(r));
-
-
-int registrador[SIZE_REGISTRADORES] = {0,0,0,0,0,0,0,0,0,0};
-int reg1, reg2, cmp = -2;
-char *re1, *re2;
+static int registrador[SIZE_REGISTRADORES] = {0,0,0,0,0,0,0,0,0,0};
+static int reg1, reg2, cmp = -2;
+static char *re1, *re2;
 int ciclos = 0;
 int miss = 0, hit = 0;
 tCache cache;
 
+
 void create_cache(int size){
+
+    free(cache.myCache);
     cache.myCache = NULL;
     cache.myCache = (struct cache*)malloc(sizeof(struct cache) * size);
     cache.size = size;
@@ -57,11 +35,6 @@ void initCache(){
         cache.myCache[i].valMemoria = -1;
         cache.myCache[i].tag = -1;
     }
-
-    /*for(i = 0; i < cache.size; i++){
-        printf("Ins: %s\nIndexMemmo: %d\nValMemmo: %d\nTag: %d\n\n",
-               cache.myCache[i].instrucao,cache.myCache[i].posMemoria,cache.myCache[i].valMemoria, cache.myCache[i].tag);
-    }*/
 }
 
 void init_program(int size){
@@ -528,7 +501,8 @@ int decodificaInstrucao(char *instrucao){
 
 }
 
-void executaInstrucao(char *instrucao, int *PC, int execInstrucao){
+
+ void executaInstrucao(char *instrucao, int *PC, int execInstrucao){
 
     switch(execInstrucao){
 
@@ -594,6 +568,4 @@ void executaInstrucao(char *instrucao, int *PC, int execInstrucao){
 
     }
     ciclos++;
-    //printf("Executou instrucao: %d\n\n", ciclos);
-}
-
+ }

@@ -8,4 +8,7 @@ void grafPrint();
 int decodificaInstrucao(char *instrucao);
 void executaInstrucao(char *instrucao, int *PC, int execInstrucao);
 
+
+
+
 #endif // CPU_H
